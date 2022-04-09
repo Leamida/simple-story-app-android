@@ -19,5 +19,10 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="dont_have_an_account">Do not have an account?</string>
     <string name="image_story">Image story</string>
+    <string name="email_hint">Email</string>
+    <string name="bagikan_ceritamu_di_nstoryku">Bagikan ceritamu di\nStoryKu</string>
+    <string name="password_hint">Password</string>
+    <string name="label_ask">LABEL ASK</string>
+    <string name="name_hint">Name</string>
 
 </resources>
