@@ -5,29 +5,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.example.storyapp.core.util.Result
-import com.example.storyapp.core.util.UseCaseService
 import com.example.storyapp.feature.auth.data.repository.AuthRepository
-import com.example.storyapp.feature.auth.domain.model.RegisterResponse
 import com.example.storyapp.feature.auth.domain.model.User
-import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class RegisterUseCase @Inject constructor(
+class LoginUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
-    private val _register = MutableLiveData<String>()
-    operator fun invoke(name:String,email: String, password: String): LiveData<Result<String>> = liveData {
+    private val _login = MutableLiveData<User?>()
+    operator fun invoke(email: String, password: String): LiveData<Result<User?>> = liveData {
         emit(Result.Loading)
         try {
-            val registerResponse = authRepository.postRegister(name, email, password)
-            if (registerResponse.error) {
-                emit(Result.Error(registerResponse.message))
+            val loginResponse = authRepository.postLogin(email, password)
+            if (loginResponse.error) {
+                emit(Result.Error(loginResponse.message))
             } else {
-                _register.value = registerResponse.message
-                val tempData: LiveData<Result<String>> =
-                    _register.map { map -> Result.Success(map) }
+                _login.value = loginResponse.loginResult
+                val tempData: LiveData<Result<User?>> =
+                    _login.map { map -> Result.Success(map) }
                 emitSource(tempData)
             }
         } catch (e: HttpException) {
