@@ -24,5 +24,6 @@
     <string name="password_hint">Password</string>
     <string name="label_ask">LABEL ASK</string>
     <string name="name_hint">Name</string>
+    <string name="icon_user">icon user</string>
 
 </resources>
