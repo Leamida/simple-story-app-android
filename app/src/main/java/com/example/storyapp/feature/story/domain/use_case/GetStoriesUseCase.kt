@@ -16,10 +16,14 @@ class GetStoriesUseCase @Inject constructor(
     private val storyRepository: StoryRepository
 ) {
     private val _stories = MutableLiveData<List<ListStoryItem?>?>()
-    operator fun invoke(token: String,page:Int?,size:Int?): LiveData<Result<List<ListStoryItem?>?>> = liveData {
+    operator fun invoke(
+        token: String,
+        page: Int?,
+        size: Int?
+    ): LiveData<Result<List<ListStoryItem?>?>> = liveData {
         emit(Result.Loading)
         try {
-            val storyResponse = storyRepository.getStory(token,page,size)
+            val storyResponse = storyRepository.getStory(token, page, size)
             if (storyResponse.error) {
                 emit(Result.Error(storyResponse.message))
             } else {
