@@ -1,6 +1,9 @@
 package com.example.storyapp.di
 
 import com.example.storyapp.BuildConfig
+import com.example.storyapp.feature.auth.data.repository.AuthRepository
+import com.example.storyapp.feature.auth.data.source.api.AuthApiService
+import com.example.storyapp.feature.auth.domain.repository.AuthRepositoryService
 import com.example.storyapp.feature.story.data.repository.StoryRepository
 import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import com.example.storyapp.feature.story.domain.repository.StoryRepositoryService
@@ -43,5 +46,33 @@ object AppModule {
     @Singleton
     fun provideStoryRepository(api: StoryApiService): StoryRepositoryService {
         return StoryRepository(api)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideAuthApi(): AuthApiService {
+        val loggingInterceptor =
+            if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            } else {
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+            }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(AuthApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(api: AuthApiService): AuthRepositoryService {
+        return AuthRepository(api)
     }
 }

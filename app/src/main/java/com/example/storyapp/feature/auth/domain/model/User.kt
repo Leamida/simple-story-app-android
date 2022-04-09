@@ -2,14 +2,14 @@ package com.example.storyapp.feature.auth.domain.model
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResult(
+data class User(
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	val name: String,
 
 	@field:SerializedName("userId")
-	val userId: String? = null,
+	val userId: String,
 
 	@field:SerializedName("token")
-	val token: String? = null
+	val token: String
 )
