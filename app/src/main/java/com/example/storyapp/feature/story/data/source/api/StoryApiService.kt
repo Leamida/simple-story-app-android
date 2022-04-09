@@ -1,14 +1,14 @@
 package com.example.storyapp.feature.story.data.source.api
 
 import com.example.storyapp.feature.story.domain.model.StoryResponse
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface StoryApiService {
-    @POST("stories")
+    @GET("stories")
     suspend fun getStory(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Query("page") page:Int?,
+        @Query("size") size:Int?
     ): StoryResponse
 
 }
