@@ -15,8 +15,8 @@
 
     <string name="button_login">login</string>
     <string name="button_register">register</string>
-    
+
     <string name="already_have_an_account">Already have an account?</string>
     <string name="dont_have_an_account">Do not have an account?</string>
-    
+
 </resources>
