@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">StoryApp</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="required">Required</string>
+    <string name="minimum_password_char">Minimum 6 Character</string>
+    <string name="insert_email_correctly">Please insert email correctly</string>
+    <string name="logout_ask">Are you sure want to logout?</string>
+
+    <string name="label_button">LABEL_BUTTON</string>
+    <string name="label_hint">LABEL_HINT</string>
+    <string name="label_title">LABEL_TITLE</string>
+    <string name="label_description">LABEL_DESCRIPTION</string>
+    <string name="label_date">LABEL_DATE</string>
+
+    <string name="button_login">login</string>
+    <string name="button_register">register</string>
+    
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="dont_have_an_account">Do not have an account?</string>
+    
 </resources>
