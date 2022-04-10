@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity() {
                 builder.setMessage(resources.getString(R.string.logout_ask))
                 builder.setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
                     userViewModel.setUser(null)
+                    finish()
                 }
                 builder.setNegativeButton(resources.getString(R.string.no)) { _, _ ->
                 }

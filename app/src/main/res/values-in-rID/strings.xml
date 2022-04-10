@@ -23,4 +23,5 @@
     <string name="login_failed">Gagal masuk</string>
     <string name="or"> atau </string>
     <string name="no_internet_connection">Tidak ada koneksi internet</string>
+    <string name="user_created_trying_to_login">Berhasil mendaftar.\nMencoba untuk login</string>
 </resources>

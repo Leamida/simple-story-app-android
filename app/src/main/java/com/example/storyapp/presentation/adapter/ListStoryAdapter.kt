@@ -34,8 +34,8 @@ class ListStoryAdapter(
         }
          val shimmer = Shimmer.AlphaHighlightBuilder()
             .setDuration(1500)
-            .setBaseAlpha(0.6f)
-            .setHighlightAlpha(0.5f)
+            .setBaseAlpha(0.8f)
+            .setHighlightAlpha(0.7f)
             .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
             .setAutoStart(true)
             .build()

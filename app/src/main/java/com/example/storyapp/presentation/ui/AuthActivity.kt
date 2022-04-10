@@ -132,8 +132,15 @@ class AuthActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     Log.d(TAG, result.data)
-                    startActivity(Intent(this@AuthActivity, MainActivity::class.java))
-                    this@AuthActivity.finish()
+                    when(result.data){
+                        "User created"->{
+                            Toast.makeText(this@AuthActivity,resources.getString(R.string.user_created_trying_to_login),Toast.LENGTH_LONG).show()
+                        }
+                        "success"->{
+                            startActivity(Intent(this@AuthActivity,MainActivity::class.java))
+                            finish()
+                        }
+                    }
                 }
                 is Result.Error -> {
                     binding.apply {
@@ -149,6 +156,9 @@ class AuthActivity : AppCompatActivity() {
                                             resources.getString(R.string.email_already_taken)
                                 etEmail.requestFocus()
                             }
+                        }
+                        else -> {
+                            Toast.makeText(this@AuthActivity,result.error,Toast.LENGTH_LONG).show()
                         }
                     }
                     Log.d(TAG, result.error)
@@ -171,7 +181,7 @@ class AuthActivity : AppCompatActivity() {
                             etPassword.requestFocus()
                         }
                         else -> {
-                            if (etEmail.error.isNullOrEmpty() || etPassword.error.isNullOrEmpty()) {
+                            if (etEmail.error.isNullOrEmpty() && etPassword.error.isNullOrEmpty()) {
                                 postLogin(
                                     etEmail.text?.trim().toString(),
                                     etPassword.text.toString()
@@ -195,7 +205,7 @@ class AuthActivity : AppCompatActivity() {
                             etPassword.requestFocus()
                         }
                         else -> {
-                            if (etName.error.isNullOrEmpty() || etEmail.error.isNullOrEmpty() || etPassword.error.isNullOrEmpty()) {
+                            if (etName.error.isNullOrEmpty() && etEmail.error.isNullOrEmpty() && etPassword.error.isNullOrEmpty()) {
                                 postRegister(
                                     etName.text.toString(),
                                     etEmail.text?.trim().toString(),

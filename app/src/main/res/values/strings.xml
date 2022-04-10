@@ -29,4 +29,5 @@
     <string name="log_out">log out</string>
     <string name="login_failed">Login failed</string>
     <string name="no_internet_connection">No internet connection</string>
+    <string name="user_created_trying_to_login">Register success.\nTrying to login</string>
 </resources>
