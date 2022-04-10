@@ -14,7 +14,7 @@ class UserRepository @Inject constructor(
         return userPreferences.getUser()
     }
 
-    override suspend fun setUser(user: User) {
+    override suspend fun setUser(user: User?) {
         return userPreferences.setUser(user)
     }
 }

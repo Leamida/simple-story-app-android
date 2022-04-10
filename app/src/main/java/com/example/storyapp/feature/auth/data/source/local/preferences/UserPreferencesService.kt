@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface UserPreferencesService {
 
     fun getUser(): Flow<User?>
-    suspend fun setUser(user: User)
+    suspend fun setUser(user: User?)
 }

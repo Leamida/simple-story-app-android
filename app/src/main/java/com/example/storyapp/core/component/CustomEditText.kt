@@ -4,11 +4,13 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import androidx.appcompat.widget.AppCompatEditText
 import com.example.storyapp.R
+import com.google.android.material.textfield.TextInputEditText
 import java.util.regex.Pattern
 
-class CustomEditText : AppCompatEditText {
+class CustomEditText : TextInputEditText {
 
     constructor(context: Context) : super(context) {
         init()
@@ -32,8 +34,9 @@ class CustomEditText : AppCompatEditText {
 
             override fun afterTextChanged(s: Editable?) {
                when(inputType){
-                   32->{
+                   33->{
                        s?.let {
+
                            when{
                                !Pattern.matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$",it.trim())->{
                                    error = resources.getString(R.string.insert_email_correctly)
@@ -44,7 +47,7 @@ class CustomEditText : AppCompatEditText {
                            }
                        }
                    }
-                   128->{
+                   129->{
                        s?.let {
                            when{
                                it.length<6->{

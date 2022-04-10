@@ -47,7 +47,6 @@ class ListStoryAdapter(
             Glide.with(holder.itemView.context)
                 .load(it)
                 .placeholder(shimmerDrawable)
-                .transform(CircleCrop())
                 .into(holder.binding.ivStory)
         }
         holder.itemView.setOnClickListener {

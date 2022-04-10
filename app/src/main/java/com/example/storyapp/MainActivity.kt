@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
@@ -23,13 +24,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onStart() {
         super.onStart()
+
+
         userViewModel.getUser()
             .observe(this@MainActivity) {
-                if (it!=null){
-                    getStories(it.token)
-                }else{
-                   startActivity(Intent(this@MainActivity,AuthActivity::class.java))
-                       this@MainActivity.finish()
+                it?.token.let { token->
+                    if (token.isNullOrEmpty()){
+                        startActivity(Intent(this@MainActivity,AuthActivity::class.java))
+                        this@MainActivity.finish()
+                    }else{
+                        getStories(token)
+                    }
                 }
             }
     }
@@ -38,12 +43,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.rvStory.layoutManager = LinearLayoutManager(this)
 
     }
 
     private fun getStories(token: String) {
-        storyViewModel.getStories("Bearer $token", size = 1)
+        storyViewModel.getStories("Bearer $token", size = 10)
             .observe(this@MainActivity) { result ->
                 when (result) {
                     is Result.Loading -> {

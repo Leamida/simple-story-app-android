@@ -31,11 +31,17 @@ class UserPreferences @Inject constructor(
         )
     }
 
-    override suspend fun setUser(user: User) {
-        userDataStore.edit {
-            it[USER_NAME] = user.name
-            it[USER_TOKEN] = user.token
-            it[USER_ID] = user.userId
+    override suspend fun setUser(user: User?) {
+        if(user!=null){
+            userDataStore.edit {
+                it[USER_NAME] = user.name
+                it[USER_TOKEN] = user.token
+                it[USER_ID] = user.userId
+            }
+        }else{
+            userDataStore.edit {
+                it.clear()
+            }
         }
     }
 }

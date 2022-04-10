@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="@string/label_title"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textAppearance="?attr/textAppearanceBody2" />
 
@@ -51,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/label_description"
+                    android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
