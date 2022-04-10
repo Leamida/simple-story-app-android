@@ -4,7 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.databinding.ActivityMainBinding
@@ -83,6 +87,27 @@ class MainActivity : AppCompatActivity() {
 //                .putExtra(DetailUserActivity.PARCEL_FROM, "MainActivity")
 //        )
 //    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout -> {
+                userViewModel.setUser(null)
+                true
+            }
+            R.id.settings -> {
+
+                true
+            }
+            else -> true
+        }
+    }
+
 
     companion object {
         private const val TAG = "MainActivity"

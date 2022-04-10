@@ -25,7 +25,8 @@
     <string name="label_ask">LABEL ASK</string>
     <string name="name_hint">Name</string>
     <string name="icon_user">icon user</string>
-
+    <string name="settings">settings</string>
+    <string name="log_out">log out</string>
 
 
 </resources>

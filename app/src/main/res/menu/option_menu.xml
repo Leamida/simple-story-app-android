@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:menuCategory="container">
+        <item android:id="@+id/settings"
+            android:title="@string/settings"
+            android:icon = "@drawable/ic_settings"
+            app:showAsAction="ifRoom" />
+        <item android:id="@+id/logout"
+            android:title="@string/log_out"
+            android:icon = "@drawable/ic_logout"
+            app:showAsAction="ifRoom" />
+    </group>
+</menu>
