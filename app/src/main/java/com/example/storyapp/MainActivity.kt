@@ -3,10 +3,12 @@ package com.example.storyapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -97,11 +99,18 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.logout -> {
-                userViewModel.setUser(null)
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage(resources.getString(R.string.logout_ask))
+                builder.setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
+                    userViewModel.setUser(null)
+                }
+                builder.setNegativeButton(resources.getString(R.string.no)) { _, _ ->
+                }
+                builder.show()
                 true
             }
             R.id.settings -> {
-
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                 true
             }
             else -> true
