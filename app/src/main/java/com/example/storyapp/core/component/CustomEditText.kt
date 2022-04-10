@@ -39,7 +39,7 @@ class CustomEditText : TextInputEditText {
 
                            when{
                                !Pattern.matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$",it.trim())->{
-                                   error = resources.getString(R.string.insert_email_correctly)
+                                   error = resources.getString(R.string.invalid_email)
                                }
                                it.isBlank()->{
                                    error = resources.getString(R.string.required)
