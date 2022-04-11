@@ -30,4 +30,8 @@
     <string name="login_failed">Login failed</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="user_created_trying_to_login">Register success.\nTrying to login</string>
+    <string name="btn_camera">Camera</string>
+    <string name="btn_gallery" translatable="false">Gallery</string>
+    <string name="btn_upload" translatable="false">Upload</string>
+    <string name="image">Image</string>
 </resources>

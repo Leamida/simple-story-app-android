@@ -24,4 +24,6 @@
     <string name="or"> atau </string>
     <string name="no_internet_connection">Tidak ada koneksi internet</string>
     <string name="user_created_trying_to_login">Berhasil mendaftar.\nMencoba untuk login</string>
+    <string name="btn_camera">Kamera</string>
+    <string name="image">Gambar</string>
 </resources>

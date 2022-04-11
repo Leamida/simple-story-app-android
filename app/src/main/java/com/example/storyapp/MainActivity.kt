@@ -2,6 +2,8 @@ package com.example.storyapp
 
 import android.app.Activity
 import android.content.Intent
+import android.content.Intent.ACTION_GET_CONTENT
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -24,6 +26,8 @@ import com.example.storyapp.presentation.view_model.StoryViewModel
 import com.example.storyapp.presentation.view_model.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.log
+import androidx.activity.result.contract.ActivityResultContracts
+import com.example.storyapp.core.util.UriTo
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -84,13 +88,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-//    private fun parcelData(user: ItemsItem) {
-//        startActivity(
-//            Intent(this@MainActivity, DetailUserActivity::class.java)
-//                .putExtra(DetailUserActivity.EXTRA_USER, user)
-//                .putExtra(DetailUserActivity.PARCEL_FROM, "MainActivity")
-//        )
-//    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
