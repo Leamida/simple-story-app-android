@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 
 class Internet {
-    companion object{
+    companion object {
         @SuppressLint("ObsoleteSdkInt")
         @Suppress("DEPRECATION")
         fun isAvailable(context: Context): Boolean {

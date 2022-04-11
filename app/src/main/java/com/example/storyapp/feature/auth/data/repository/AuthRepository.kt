@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
     private val authApiService: AuthApiService
-) :AuthRepositoryService{
+) : AuthRepositoryService {
 
     override suspend fun postLogin(email: String, password: String): LoginResponse {
         return authApiService.postLogin(email, password)

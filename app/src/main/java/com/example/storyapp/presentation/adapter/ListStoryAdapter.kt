@@ -7,12 +7,9 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.storyapp.databinding.CardBinding
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import com.example.storyapp.presentation.ui.StoryDetailActivity
-import com.facebook.shimmer.Shimmer
-import com.facebook.shimmer.ShimmerDrawable
 import androidx.core.util.Pair
 import com.example.storyapp.core.util.ShimmerPlaceHolder
 
@@ -35,8 +32,8 @@ class ListStoryAdapter(
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.binding.apply {
-            tvName.text=listStory[position]?.name
-            tvDescription.text=listStory[position]?.description
+            tvName.text = listStory[position]?.name
+            tvDescription.text = listStory[position]?.description
         }
 
         listStory[position]?.photoUrl?.let {

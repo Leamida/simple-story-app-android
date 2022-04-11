@@ -3,10 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.storyapp">
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
 
     <application
@@ -21,10 +25,12 @@
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.CameraActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.AddStoryActivity"
-            android:exported="true" >
+            android:exported="false"/>
 
-        </activity>
         <activity
             android:name=".presentation.ui.StoryDetailActivity"
             android:exported="false" />

@@ -20,28 +20,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="@string/label_title"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:transitionName="tName"
-                android:textAppearance="?attr/textAppearanceBody2" />
+                android:transitionName="tName" />
 
             <ImageView
                 android:id="@+id/ivStory"
                 android:layout_width="match_parent"
                 android:layout_height="420dp"
-                android:src="@drawable/ic_baseline_camera_24"
-                android:transitionName="tIvStory"
                 android:contentDescription="@string/image_story"
-                android:scaleType="center" />
+                android:scaleType="center"
+                android:src="@drawable/ic_baseline_camera_24"
+                android:transitionName="tIvStory" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,10 +58,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/label_description"
-                    android:textSize="16sp"
-                    android:transitionName="tDescription"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="16sp"
+                    android:transitionName="tDescription" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

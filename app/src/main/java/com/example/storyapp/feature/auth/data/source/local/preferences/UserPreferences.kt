@@ -25,20 +25,20 @@ class UserPreferences @Inject constructor(
 
     override fun getUser(): Flow<User?> = userDataStore.data.map {
         User(
-            name = it[USER_NAME]?: "",
-            token = it[USER_TOKEN]?: "",
-            userId = it[USER_ID]?:""
+            name = it[USER_NAME] ?: "",
+            token = it[USER_TOKEN] ?: "",
+            userId = it[USER_ID] ?: ""
         )
     }
 
     override suspend fun setUser(user: User?) {
-        if(user!=null){
+        if (user != null) {
             userDataStore.edit {
                 it[USER_NAME] = user.name
                 it[USER_TOKEN] = user.token
                 it[USER_ID] = user.userId
             }
-        }else{
+        } else {
             userDataStore.edit {
                 it.clear()
             }

@@ -26,4 +26,11 @@
     <string name="user_created_trying_to_login">Berhasil mendaftar.\nMencoba untuk login</string>
     <string name="btn_camera">Kamera</string>
     <string name="image">Gambar</string>
+    <string name="cant_get_permission">Tidak mendapatkan permission.</string>
+    <string name="please_insert_an_image">Silakan masukkan berkas gambar terlebih dahulu.</string>
+    <string name="fab_content_desc">Tambahkan cerita</string>
+    <string name="story_created">Cerita berhasil dibuat</string>
+    <string name="no_data">No data</string>
+    <string name="failed_getting_image">Gagal mengambil gambar.</string>
+    <string name="failed_launch_camera">Gagal memunculkan kamera.</string>
 </resources>

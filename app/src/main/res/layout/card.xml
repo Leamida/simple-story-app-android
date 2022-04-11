@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
@@ -18,26 +18,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="@string/label_title"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textAppearance="?attr/textAppearanceBody2" />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/ivStory"
                 android:layout_width="match_parent"
                 android:layout_height="420dp"
-                android:src="@drawable/ic_baseline_camera_24"
                 android:contentDescription="@string/image_story"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@drawable/ic_baseline_camera_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,12 +53,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
                     android:text="@string/label_description"
-                    android:textSize="16sp"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 

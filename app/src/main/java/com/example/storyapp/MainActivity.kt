@@ -1,21 +1,16 @@
 package com.example.storyapp
 
-import android.app.Activity
 import android.content.Intent
-import android.content.Intent.ACTION_GET_CONTENT
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContextCompat
-import androidx.core.util.Pair
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.databinding.ActivityMainBinding
@@ -25,32 +20,16 @@ import com.example.storyapp.presentation.ui.AuthActivity
 import com.example.storyapp.presentation.view_model.StoryViewModel
 import com.example.storyapp.presentation.view_model.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.log
-import androidx.activity.result.contract.ActivityResultContracts
-import com.example.storyapp.core.util.UriTo
+import com.example.storyapp.core.util.Internet
+import com.example.storyapp.presentation.ui.AddStoryActivity
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val storyViewModel: StoryViewModel by viewModels()
     private val userViewModel: UserViewModel by viewModels()
+    private var token: String? = null
     private lateinit var binding: ActivityMainBinding
-    override fun onStart() {
-        super.onStart()
-
-
-        userViewModel.getUser()
-            .observe(this@MainActivity) {
-                it?.token.let { token->
-                    if (token.isNullOrEmpty()){
-                        startActivity(Intent(this@MainActivity,AuthActivity::class.java))
-                        this@MainActivity.finish()
-                    }else{
-                        getStories(token)
-                    }
-                }
-            }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +37,42 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.rvStory.layoutManager = LinearLayoutManager(this)
 
+        if (Internet.isAvailable(this@MainActivity)) {
+            getUserToken()
+        } else {
+            binding.cReload.visibility = View.VISIBLE
+            Toast.makeText(
+                this@MainActivity,
+                resources.getString(R.string.no_internet_connection),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        binding.ibReload.setOnClickListener {
+            getUserToken()
+        }
+
+        binding.fabAddStory.setOnClickListener {
+            startActivity(
+                Intent(this@MainActivity, AddStoryActivity::class.java)
+                    .putExtra("token", token)
+            )
+            finish()
+        }
+    }
+
+    private fun getUserToken() {
+        userViewModel.getUser()
+            .observe(this@MainActivity) {
+                it?.token.let { token ->
+                    if (token.isNullOrEmpty()) {
+                        startActivity(Intent(this@MainActivity, AuthActivity::class.java))
+                        this@MainActivity.finish()
+                    } else {
+                        getStories(token)
+                        this@MainActivity.token = token
+                    }
+                }
+            }
     }
 
     private fun getStories(token: String) {
@@ -65,21 +80,47 @@ class MainActivity : AppCompatActivity() {
             .observe(this@MainActivity) { result ->
                 when (result) {
                     is Result.Loading -> {
-
+                        Log.d(TAG, "loading...")
+                        binding.apply {
+                            ibReload.visibility = View.GONE
+                            pbMain.visibility = View.VISIBLE
+                        }
                     }
                     is Result.Success -> {
-                        result.data?.let {
-                            showStoriesOnRecyclerList(it)
+                        binding.cReload.visibility = View.GONE
+                        if (result.data.isNullOrEmpty()) {
+                            binding.apply {
+                                cReload.visibility = View.VISIBLE
+                                ibReload.visibility = View.VISIBLE
+                                pbMain.visibility = View.GONE
+                            }
+                            Toast.makeText(
+                                this@MainActivity,
+                                resources.getString(R.string.no_data),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            binding.cReload.visibility = View.GONE
+                            showStoriesOnRecyclerList(result.data)
                         }
                     }
                     is Result.Error -> {
+                        Toast.makeText(
+                            this@MainActivity,
+                            result.error,
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Log.d(TAG, result.error)
+                        binding.apply {
+                            ibReload.visibility = View.VISIBLE
+                            pbMain.visibility = View.GONE
+                        }
                     }
                 }
             }
     }
 
-    private fun showStoriesOnRecyclerList(stories:List<ListStoryItem?>) {
+    private fun showStoriesOnRecyclerList(stories: List<ListStoryItem?>) {
         val listStoryAdapter = ListStoryAdapter(stories)
         binding.rvStory.adapter = listStoryAdapter
         listStoryAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
@@ -87,8 +128,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater

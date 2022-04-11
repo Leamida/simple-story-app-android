@@ -7,7 +7,7 @@ import javax.inject.Inject
 class RemoveUserUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    suspend operator fun invoke(user: User?){
+    suspend operator fun invoke(user: User?) {
         userRepository.setUser(user)
     }
 }

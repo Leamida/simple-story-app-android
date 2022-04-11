@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.storyapp.core.util.ShimmerPlaceHolder
-import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.databinding.ActivityStoryDetailBinding
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
 

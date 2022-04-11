@@ -1,11 +1,8 @@
-package com.example.storyapp.feature.auth.domain.model
+package com.example.storyapp.feature.story.domain.model
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
-
-    @field:SerializedName("loginResult")
-    val loginResult: User? = null,
+data class AddStoryResponse(
 
     @field:SerializedName("error")
     val error: Boolean,

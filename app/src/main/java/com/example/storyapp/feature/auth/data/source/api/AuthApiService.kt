@@ -11,16 +11,16 @@ interface AuthApiService {
     @FormUrlEncoded
     @POST("login")
     suspend fun postLogin(
-        @Field("email") email:String,
-        @Field("password") password:String
-    ):LoginResponse
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): LoginResponse
 
     @FormUrlEncoded
     @POST("register")
     suspend fun postRegister(
-        @Field("name") name:String,
-        @Field("email") email:String,
-        @Field("password") password:String
-    ):RegisterResponse
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): RegisterResponse
 
 }

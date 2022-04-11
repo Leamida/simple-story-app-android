@@ -132,12 +132,16 @@ class AuthActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     Log.d(TAG, result.data)
-                    when(result.data){
-                        "User created"->{
-                            Toast.makeText(this@AuthActivity,resources.getString(R.string.user_created_trying_to_login),Toast.LENGTH_LONG).show()
+                    when (result.data) {
+                        "User created" -> {
+                            Toast.makeText(
+                                this@AuthActivity,
+                                resources.getString(R.string.user_created_trying_to_login),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                        "success"->{
-                            startActivity(Intent(this@AuthActivity,MainActivity::class.java))
+                        "success" -> {
+                            startActivity(Intent(this@AuthActivity, MainActivity::class.java))
                             finish()
                         }
                     }
@@ -151,14 +155,15 @@ class AuthActivity : AppCompatActivity() {
                     when (result.error) {
                         "HTTP 400 Bad Request" -> {
                             binding.apply {
-                                etEmail.error = resources.getString(R.string.invalid_email)+" " +
-                                            resources.getString(R.string.or)+" " +
-                                            resources.getString(R.string.email_already_taken)
+                                etEmail.error = resources.getString(R.string.invalid_email) + " " +
+                                        resources.getString(R.string.or) + " " +
+                                        resources.getString(R.string.email_already_taken)
                                 etEmail.requestFocus()
                             }
                         }
                         else -> {
-                            Toast.makeText(this@AuthActivity,result.error,Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@AuthActivity, result.error, Toast.LENGTH_LONG)
+                                .show()
                         }
                     }
                     Log.d(TAG, result.error)

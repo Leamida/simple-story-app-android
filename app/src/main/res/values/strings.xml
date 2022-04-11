@@ -34,4 +34,11 @@
     <string name="btn_gallery" translatable="false">Gallery</string>
     <string name="btn_upload" translatable="false">Upload</string>
     <string name="image">Image</string>
+    <string name="cant_get_permission">can not get permission</string>
+    <string name="please_insert_an_image">Please insert an image</string>
+    <string name="fab_content_desc">Add story</string>
+    <string name="story_created">Story created</string>
+    <string name="no_data">No data</string>
+    <string name="failed_getting_image">Failed getting image</string>
+    <string name="failed_launch_camera">Failed launch camera.</string>
 </resources>

@@ -5,11 +5,16 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/ic_baseline_account_circle_64.xml" value="0.213" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2485" />
+        <entry key="app/src/main/res/drawable/ic_baseline_autorenew_24.xml" value="0.2485" />
         <entry key="app/src/main/res/drawable/ic_baseline_camera_24.xml" value="0.2485" />
+        <entry key="app/src/main/res/drawable/ic_baseline_cameraswitch_24.xml" value="0.2485" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2485" />
         <entry key="app/src/main/res/drawable/ic_logout.xml" value="0.2485" />
         <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.1995" />
         <entry key="app/src/main/res/layout/activity_add_story.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/activity_auth.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_camera.xml" value="0.33645833333333336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_story_detail.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/card.xml" value="0.37395833333333334" />

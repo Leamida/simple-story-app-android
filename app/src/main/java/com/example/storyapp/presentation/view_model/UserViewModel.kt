@@ -17,11 +17,13 @@ class UserViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val removeUserUseCase: RemoveUserUseCase
-) :ViewModel(){
-    fun postLogin(email:String,password:String) = loginUseCase(email, password)
-    fun postRegister(name:String,email:String,password:String) = registerUseCase(name,email, password)
-    fun getUser()=getUserUseCase()
-    fun setUser(user: User?){
+) : ViewModel() {
+    fun postLogin(email: String, password: String) = loginUseCase(email, password)
+    fun postRegister(name: String, email: String, password: String) =
+        registerUseCase(name, email, password)
+
+    fun getUser() = getUserUseCase()
+    fun setUser(user: User?) {
         viewModelScope.launch {
             removeUserUseCase(user)
         }

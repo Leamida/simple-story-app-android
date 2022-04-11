@@ -4,7 +4,7 @@ import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 
 class ShimmerPlaceHolder {
-    companion object{
+    companion object {
         fun active(): ShimmerDrawable {
             val shimmer = Shimmer.AlphaHighlightBuilder()
                 .setDuration(1500)

@@ -16,34 +16,35 @@ class RegisterUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
     private val _register = MutableLiveData<String>()
-    operator fun invoke(name:String,email: String, password: String): LiveData<Result<String>> = liveData {
-        emit(Result.Loading)
-        try {
-            val registerResponse = authRepository.postRegister(name, email, password)
-            if (registerResponse.error) {
-                emit(Result.Error(registerResponse.message))
-            } else {
-                _register.value = registerResponse.message
-                val tempDataRegister: LiveData<Result<String>> =
-                    _register.map { map -> Result.Success(map) }
-                emitSource(tempDataRegister)
-                val loginResponse = authRepository.postLogin(email, password)
-                if (loginResponse.error) {
-                    emit(Result.Error(loginResponse.message))
+    operator fun invoke(name: String, email: String, password: String): LiveData<Result<String>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val registerResponse = authRepository.postRegister(name, email, password)
+                if (registerResponse.error) {
+                    emit(Result.Error(registerResponse.message))
                 } else {
-                    _register.value = loginResponse.message
-                    loginResponse.loginResult?.let {
-                        userRepository.setUser(it)
-                    }
-                    val tempDataLogin: LiveData<Result<String>> =
+                    _register.value = registerResponse.message
+                    val tempDataRegister: LiveData<Result<String>> =
                         _register.map { map -> Result.Success(map) }
-                    emitSource(tempDataLogin)
+                    emitSource(tempDataRegister)
+                    val loginResponse = authRepository.postLogin(email, password)
+                    if (loginResponse.error) {
+                        emit(Result.Error(loginResponse.message))
+                    } else {
+                        _register.value = loginResponse.message
+                        loginResponse.loginResult?.let {
+                            userRepository.setUser(it)
+                        }
+                        val tempDataLogin: LiveData<Result<String>> =
+                            _register.map { map -> Result.Success(map) }
+                        emitSource(tempDataLogin)
+                    }
                 }
+            } catch (e: HttpException) {
+                emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            } catch (e: IOException) {
+                emit(Result.Error("Couldn't reach server. Check your internet connection."))
             }
-        } catch (e: HttpException) {
-            emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(Result.Error("Couldn't reach server. Check your internet connection."))
         }
-    }
 }
