@@ -1,14 +1,20 @@
 package com.example.storyapp.presentation.adapter
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.storyapp.databinding.CardBinding
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
+import com.example.storyapp.presentation.ui.StoryDetailActivity
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
+import androidx.core.util.Pair
+import com.example.storyapp.core.util.ShimmerPlaceHolder
 
 
 class ListStoryAdapter(
@@ -32,25 +38,28 @@ class ListStoryAdapter(
             tvName.text=listStory[position]?.name
             tvDescription.text=listStory[position]?.description
         }
-         val shimmer = Shimmer.AlphaHighlightBuilder()
-            .setDuration(1500)
-            .setBaseAlpha(0.8f)
-            .setHighlightAlpha(0.7f)
-            .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-            .setAutoStart(true)
-            .build()
 
-        val shimmerDrawable = ShimmerDrawable().apply {
-            setShimmer(shimmer)
-        }
         listStory[position]?.photoUrl?.let {
             Glide.with(holder.itemView.context)
                 .load(it)
-                .placeholder(shimmerDrawable)
+                .placeholder(ShimmerPlaceHolder.active())
                 .into(holder.binding.ivStory)
         }
         holder.itemView.setOnClickListener {
             listStory[holder.adapterPosition]?.let { onItemClickCallback.onItemClicked(it) }
+        }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, StoryDetailActivity::class.java)
+            intent.putExtra("Data", listStory[position])
+
+            val optionsCompat: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    holder.itemView.context as Activity,
+                    Pair(holder.binding.tvName, "tName"),
+                    Pair(holder.binding.ivStory, "tIvStory"),
+                    Pair(holder.binding.tvDescription, "tDescription"),
+                )
+            holder.itemView.context.startActivity(intent, optionsCompat.toBundle())
         }
     }
 

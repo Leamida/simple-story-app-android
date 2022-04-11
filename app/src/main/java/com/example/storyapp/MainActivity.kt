@@ -1,5 +1,6 @@
 package com.example.storyapp
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +11,9 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.databinding.ActivityMainBinding
@@ -77,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         binding.rvStory.adapter = listStoryAdapter
         listStoryAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ListStoryItem) {
-
             }
         })
     }

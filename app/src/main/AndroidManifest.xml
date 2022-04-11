@@ -4,7 +4,8 @@
     package="com.example.storyapp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".StoryApplication"
         android:allowBackup="true"
@@ -16,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
+        <activity
+            android:name=".presentation.ui.StoryDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.AuthActivity"
             android:exported="false" />
