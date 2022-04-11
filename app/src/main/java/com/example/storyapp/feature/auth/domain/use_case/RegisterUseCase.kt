@@ -16,6 +16,7 @@ class RegisterUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
     private val _register = MutableLiveData<String>()
+    private val _login = MutableLiveData<String>()
     operator fun invoke(name: String, email: String, password: String): LiveData<Result<String>> =
         liveData {
             emit(Result.Loading)
@@ -32,12 +33,12 @@ class RegisterUseCase @Inject constructor(
                     if (loginResponse.error) {
                         emit(Result.Error(loginResponse.message))
                     } else {
-                        _register.value = loginResponse.message
+                        _login.value = loginResponse.message
                         loginResponse.loginResult?.let {
                             userRepository.setUser(it)
                         }
                         val tempDataLogin: LiveData<Result<String>> =
-                            _register.map { map -> Result.Success(map) }
+                            _login.map { map -> Result.Success(map) }
                         emitSource(tempDataLogin)
                     }
                 }
