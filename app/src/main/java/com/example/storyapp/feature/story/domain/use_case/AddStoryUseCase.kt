@@ -20,11 +20,13 @@ class AddStoryUseCase @Inject constructor(
     operator fun invoke(
         token: String,
         file: MultipartBody.Part,
-        description: RequestBody
+        description: RequestBody,
+        lat: RequestBody?,
+        lon: RequestBody?
     ): LiveData<Result<AddStoryResponse?>?> = liveData {
         emit(Result.Loading)
         try {
-            _addStory.value = storyRepository.addStory(token, file, description)
+            _addStory.value = storyRepository.addStory(token, file, description,lat, lon)
             val tempData: LiveData<Result<AddStoryResponse?>?> =
                 _addStory.map { map -> Result.Success(map) }
             emitSource(tempData)
