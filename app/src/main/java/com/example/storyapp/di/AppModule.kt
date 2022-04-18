@@ -2,11 +2,8 @@ package com.example.storyapp.di
 
 import com.example.storyapp.BuildConfig
 import com.example.storyapp.feature.auth.data.repository.AuthRepository
-import com.example.storyapp.feature.auth.data.repository.UserRepository
 import com.example.storyapp.feature.auth.data.source.api.AuthApiService
-import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
 import com.example.storyapp.feature.auth.domain.repository.AuthRepositoryService
-import com.example.storyapp.feature.auth.domain.repository.UserRepositoryService
 import com.example.storyapp.feature.story.data.repository.StoryRepository
 import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import com.example.storyapp.feature.story.domain.repository.StoryRepositoryService
@@ -79,9 +76,4 @@ object AppModule {
         return AuthRepository(api)
     }
 
-    @Provides
-    @Singleton
-    fun provideUserRepository(api: UserPreferences): UserRepositoryService {
-        return UserRepository(api)
-    }
 }

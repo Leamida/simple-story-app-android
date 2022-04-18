@@ -7,9 +7,10 @@ import okhttp3.RequestBody
 
 class FakeStoryApiService : StoryApiService {
 
-    private val dummyResponse = StoryDataDummy.generateDummyStoriesResponse()
+    private val dummyStoriesResponse = StoryDataDummy.generateDummyStoriesResponse()
+    private val dummyAddStoryResponse = StoryDataDummy.generateDummyAddStoryResponse()
     override suspend fun getStory(token: String, page: Int?, size: Int?): StoryResponse {
-        return dummyResponse
+        return dummyStoriesResponse
     }
 
     override suspend fun addStory(
@@ -19,6 +20,6 @@ class FakeStoryApiService : StoryApiService {
         lat: RequestBody?,
         lon: RequestBody?
     ): AddStoryResponse {
-        TODO("Not yet implemented")
+        return dummyAddStoryResponse
     }
 }

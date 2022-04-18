@@ -17,6 +17,12 @@ class StoryViewModel @Inject constructor(
     fun getStories(token: String, page: Int? = null, size: Int? = null) =
         getStoriesUseCase(token, page, size)
 
-    fun addStory(token: String, file: MultipartBody.Part, description: RequestBody) =
-        addStoryUseCase(token, file, description)
+    fun addStory(
+        token: String,
+        file: MultipartBody.Part,
+        description: RequestBody,
+        lat: RequestBody?,
+        lon: RequestBody?
+    ) =
+        addStoryUseCase(token, file, description,lat, lon)
 }

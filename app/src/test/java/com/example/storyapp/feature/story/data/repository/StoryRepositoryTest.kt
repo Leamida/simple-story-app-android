@@ -6,6 +6,11 @@ import com.example.storyapp.feature.story.data.source.api.StoryDataDummy
 import com.example.storyapp.feature.story.data.source.api.FakeStoryApiService
 import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import kotlinx.coroutines.test.runBlockingTest
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.*
 import org.junit.Assert.*
 
@@ -40,6 +45,18 @@ class StoryRepositoryTest {
     }
 
     @Test
-    fun addStory() {
+    fun `when addStory error should be false`() = mainCoroutineRule.runBlockingTest{
+        val description ="test".toRequestBody("text/plain".toMediaType())
+        val fakeRequestImageFile = "imageFile".toRequestBody("text/plain".toMediaType())
+        val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "test",
+            "test",
+            fakeRequestImageFile
+        )
+        val actualResponse = apiService.addStory("token", imageMultipart,description,null,null)
+        val expectedError = StoryDataDummy.generateDummyAddStoryResponse().error
+        val actualError = actualResponse.error
+
+        assertEquals(expectedError,actualError)
     }
 }

@@ -168,7 +168,7 @@ class AddStoryActivity : AppCompatActivity() {
                 it.name,
                 requestImageFile
             )
-            storyViewModel.addStory("Bearer $token", imageMultipart, description)
+            storyViewModel.addStory("Bearer $token", imageMultipart, description,null,null)
                 .observe(this@AddStoryActivity) { result ->
                     when (result) {
                         is Result.Loading -> {

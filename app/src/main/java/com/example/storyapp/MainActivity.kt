@@ -11,6 +11,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.databinding.ActivityMainBinding
@@ -21,14 +23,20 @@ import com.example.storyapp.presentation.view_model.StoryViewModel
 import com.example.storyapp.presentation.view_model.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.storyapp.core.util.Internet
+import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
 import com.example.storyapp.presentation.ui.AddStoryActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val storyViewModel: StoryViewModel by viewModels()
-    private val userViewModel: UserViewModel by viewModels()
     private var token: String? = null
+    private lateinit var userPreferences : UserPreferences
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.rvStory.layoutManager = LinearLayoutManager(this)
+
+        userPreferences = UserPreferences(applicationContext)
 
         if (Internet.isAvailable(this@MainActivity)) {
             getUserToken()
@@ -61,18 +71,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUserToken() {
-        userViewModel.getUser()
-            .observe(this@MainActivity) {
-                it?.token.let { token ->
-                    if (token.isNullOrEmpty()) {
-                        startActivity(Intent(this@MainActivity, AuthActivity::class.java))
-                        this@MainActivity.finish()
-                    } else {
-                        getStories(token)
-                        this@MainActivity.token = token
-                    }
+        userPreferences.getUser().asLiveData().observe(this@MainActivity){
+            it?.token.let { token ->
+                if (token.isNullOrEmpty()) {
+                    startActivity(Intent(this@MainActivity, AuthActivity::class.java))
+                    this@MainActivity.finish()
+                } else {
+                    getStories(token)
+                    this@MainActivity.token = token
                 }
             }
+        }
     }
 
     private fun getStories(token: String) {
@@ -141,7 +150,9 @@ class MainActivity : AppCompatActivity() {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage(resources.getString(R.string.logout_ask))
                 builder.setPositiveButton(resources.getString(R.string.yes)) { _, _ ->
-                    userViewModel.setUser(null)
+                    CoroutineScope(Dispatchers.IO).launch{
+                        userPreferences.setUser(null)
+                    }
                     finish()
                 }
                 builder.setNegativeButton(resources.getString(R.string.no)) { _, _ ->

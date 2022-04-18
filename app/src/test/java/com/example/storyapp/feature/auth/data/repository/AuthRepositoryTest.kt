@@ -43,9 +43,9 @@ class AuthRepositoryTest {
 
     @Test
     @kotlinx.coroutines.ExperimentalCoroutinesApi
-    fun `when postLogin with unregistered email and password, error should be true`() =
+    fun `when postLogin with unregister email and password, error should be true`() =
         mainCoroutineRule.runBlockingTest {
-            val loginResponse = apiService.postLogin("unregistered@gmail.com", "123456")
+            val loginResponse = apiService.postLogin("unregister@gmail.com", "123456")
             val expectedError = true
             val actualError = loginResponse.error
 
@@ -68,11 +68,11 @@ class AuthRepositoryTest {
 
     @Test
     @kotlinx.coroutines.ExperimentalCoroutinesApi
-    fun `when postRegister With Unregistered email and 6 char password, error should be false`() =
+    fun `when postRegister With Unregister email and 6 char password, error should be false`() =
         mainCoroutineRule.runBlockingTest {
             val expectedError = false
             val registerResponse =
-                apiService.postRegister("test", "unregistered@email.com", "123456")
+                apiService.postRegister("test", "unregister@email.com", "123456")
             val actualError = registerResponse.error
 
             assertEquals(expectedError, actualError)

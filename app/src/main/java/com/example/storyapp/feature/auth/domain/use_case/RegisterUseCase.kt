@@ -6,14 +6,14 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.feature.auth.data.repository.AuthRepository
-import com.example.storyapp.feature.auth.data.repository.UserRepository
+import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
     private val authRepository: AuthRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserPreferences
 ) {
     private val _register = MutableLiveData<String>()
     private val _login = MutableLiveData<String>()
