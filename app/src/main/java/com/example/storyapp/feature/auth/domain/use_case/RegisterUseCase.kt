@@ -7,16 +7,15 @@ import androidx.lifecycle.map
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.feature.auth.data.repository.AuthRepository
 import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
+import com.example.storyapp.feature.auth.domain.model.User
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
     private val authRepository: AuthRepository,
-    private val userRepository: UserPreferences
 ) {
     private val _register = MutableLiveData<String>()
-    private val _login = MutableLiveData<String>()
     operator fun invoke(name: String, email: String, password: String): LiveData<Result<String>> =
         liveData {
             emit(Result.Loading)
@@ -29,18 +28,6 @@ class RegisterUseCase @Inject constructor(
                     val tempDataRegister: LiveData<Result<String>> =
                         _register.map { map -> Result.Success(map) }
                     emitSource(tempDataRegister)
-                    val loginResponse = authRepository.postLogin(email, password)
-                    if (loginResponse.error) {
-                        emit(Result.Error(loginResponse.message))
-                    } else {
-                        _login.value = loginResponse.message
-                        loginResponse.loginResult?.let {
-                            userRepository.setUser(it)
-                        }
-                        val tempDataLogin: LiveData<Result<String>> =
-                            _login.map { map -> Result.Success(map) }
-                        emitSource(tempDataLogin)
-                    }
                 }
             } catch (e: HttpException) {
                 emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))

@@ -12,21 +12,26 @@ import com.example.storyapp.databinding.ActivityAuthBinding
 import com.example.storyapp.R
 import com.example.storyapp.core.util.Internet
 import com.example.storyapp.core.util.Result
+import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
 import com.example.storyapp.presentation.view_model.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthBinding
     private var auth: String = "login"
+    private lateinit var userPreferences: UserPreferences
     private val userViewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        userPreferences = UserPreferences(applicationContext)
         supportActionBar?.hide()
         setUiLogin()
 
@@ -95,9 +100,14 @@ class AuthActivity : AppCompatActivity() {
                     Log.d(TAG, "Loading...")
                 }
                 is Result.Success -> {
-                    Log.d(TAG, result.data)
-                    startActivity(Intent(this@AuthActivity, MainActivity::class.java))
-                    this@AuthActivity.finish()
+                    val user = result.data
+                    CoroutineScope(Dispatchers.IO).launch {
+                        userPreferences.setUser(user)
+                        startActivity(Intent(this@AuthActivity, MainActivity::class.java))
+                        this@AuthActivity.finish()
+                    }
+                    Log.d(TAG, result.data.toString())
+
                 }
                 is Result.Error -> {
                     binding.apply {
@@ -139,10 +149,9 @@ class AuthActivity : AppCompatActivity() {
                                 resources.getString(R.string.user_created_trying_to_login),
                                 Toast.LENGTH_LONG
                             ).show()
-                        }
-                        "success" -> {
-                            startActivity(Intent(this@AuthActivity, MainActivity::class.java))
-                            finish()
+                            binding.cName.visibility = View.GONE
+                            auth = "login"
+                            postLogin(email, password)
                         }
                     }
                 }

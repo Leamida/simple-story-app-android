@@ -16,26 +16,26 @@ class GetStoriesUseCase @Inject constructor(
     private val storyRepository: StoryRepository
 ) {
     private val _stories = MutableLiveData<List<ListStoryItem?>?>()
-    operator fun invoke(
-        token: String,
-        page: Int?,
-        size: Int?
-    ): LiveData<Result<List<ListStoryItem?>?>> = liveData {
-        emit(Result.Loading)
-        try {
-            val storyResponse = storyRepository.getStory(token, page, size)
-            if (storyResponse.error) {
-                emit(Result.Error(storyResponse.message))
-            } else {
-                _stories.value = storyResponse.listStory
-                val tempData: LiveData<Result<List<ListStoryItem?>?>> =
-                    _stories.map { map -> Result.Success(map) }
-                emitSource(tempData)
-            }
-        } catch (e: HttpException) {
-            emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(Result.Error("Couldn't reach server. Check your internet connection."))
-        }
-    }
+//    operator fun invoke(
+//        token: String,
+//        page: Int?,
+//        size: Int?
+//    ): LiveData<Result<List<ListStoryItem?>?>> = liveData {
+//        emit(Result.Loading)
+//        try {
+//            val storyResponse = storyRepository.getStory(token, page, size)
+//            if (storyResponse.error) {
+//                emit(Result.Error(storyResponse.message))
+//            } else {
+//                _stories.value = storyResponse.listStory
+//                val tempData: LiveData<Result<List<ListStoryItem?>?>> =
+//                    _stories.map { map -> Result.Success(map) }
+//                emitSource(tempData)
+//            }
+//        } catch (e: HttpException) {
+//            emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))
+//        } catch (e: IOException) {
+//            emit(Result.Error("Couldn't reach server. Check your internet connection."))
+//        }
+//    }
 }

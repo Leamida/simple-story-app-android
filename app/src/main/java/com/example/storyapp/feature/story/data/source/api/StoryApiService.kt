@@ -7,6 +7,7 @@ import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface StoryApiService {
+
     @GET("stories")
     suspend fun getStory(
         @Header("Authorization") token: String,

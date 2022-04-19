@@ -24,6 +24,7 @@ import com.example.storyapp.presentation.view_model.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.storyapp.core.util.Internet
 import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
+import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import com.example.storyapp.presentation.ui.AddStoryActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -77,65 +78,23 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this@MainActivity, AuthActivity::class.java))
                     this@MainActivity.finish()
                 } else {
-                    getStories(token)
+                    getStories("Bearer $token")
                     this@MainActivity.token = token
                 }
             }
         }
     }
 
-    private fun getStories(token: String) {
-        storyViewModel.getStories("Bearer $token", size = 10)
-            .observe(this@MainActivity) { result ->
-                when (result) {
-                    is Result.Loading -> {
-                        Log.d(TAG, "loading...")
-                        binding.apply {
-                            ibReload.visibility = View.GONE
-                            pbMain.visibility = View.VISIBLE
-                        }
-                    }
-                    is Result.Success -> {
-                        binding.cReload.visibility = View.GONE
-                        if (result.data.isNullOrEmpty()) {
-                            binding.apply {
-                                cReload.visibility = View.VISIBLE
-                                ibReload.visibility = View.VISIBLE
-                                pbMain.visibility = View.GONE
-                            }
-                            Toast.makeText(
-                                this@MainActivity,
-                                resources.getString(R.string.no_data),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            binding.cReload.visibility = View.GONE
-                            showStoriesOnRecyclerList(result.data)
-                        }
-                    }
-                    is Result.Error -> {
-                        Toast.makeText(
-                            this@MainActivity,
-                            result.error,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        Log.d(TAG, result.error)
-                        binding.apply {
-                            ibReload.visibility = View.VISIBLE
-                            pbMain.visibility = View.GONE
-                        }
-                    }
-                }
-            }
-    }
-
-    private fun showStoriesOnRecyclerList(stories: List<ListStoryItem?>) {
-        val listStoryAdapter = ListStoryAdapter(stories)
+    private fun getStories(token :String) {
+        val listStoryAdapter = ListStoryAdapter()
         binding.rvStory.adapter = listStoryAdapter
         listStoryAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ListStoryItem) {
             }
         })
+        storyViewModel.getStories(token).observe(this){
+            listStoryAdapter.submitData(lifecycle,it)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
