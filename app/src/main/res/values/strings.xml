@@ -41,4 +41,6 @@
     <string name="no_data">No data</string>
     <string name="failed_getting_image">Failed getting image</string>
     <string name="failed_launch_camera">Failed launch camera.</string>
+    <string name="retry">Try again</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

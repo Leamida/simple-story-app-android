@@ -6,6 +6,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.feature.story.data.repository.StoryRepository
+import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import com.example.storyapp.feature.story.domain.model.AddStoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -14,7 +15,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class AddStoryUseCase @Inject constructor(
-    private val storyRepository: StoryRepository
+    private val storyApiService: StoryApiService
 ) {
     private val _addStory = MutableLiveData<AddStoryResponse?>()
     operator fun invoke(
@@ -26,7 +27,7 @@ class AddStoryUseCase @Inject constructor(
     ): LiveData<Result<AddStoryResponse?>?> = liveData {
         emit(Result.Loading)
         try {
-            _addStory.value = storyRepository.addStory(token, file, description,lat, lon)
+            _addStory.value = storyApiService.addStory(token, file, description,lat, lon)
             val tempData: LiveData<Result<AddStoryResponse?>?> =
                 _addStory.map { map -> Result.Success(map) }
             emitSource(tempData)

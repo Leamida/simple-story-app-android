@@ -37,7 +37,7 @@ class StoryRepositoryTest {
     @kotlinx.coroutines.ExperimentalCoroutinesApi
     fun `when getStory Should Not Null`()  = mainCoroutineRule.runBlockingTest{
         val expectedStories = StoryDataDummy.generateDummyStoriesResponse()
-        val actualStories = apiService.getStory("token",null,null)
+        val actualStories = storiesRepository.getStory("token",null,null)
 
         assertNotNull(actualStories)
         assertEquals(expectedStories,actualStories)
@@ -53,10 +53,9 @@ class StoryRepositoryTest {
             "test",
             fakeRequestImageFile
         )
-        val actualResponse = apiService.addStory("token", imageMultipart,description,null,null)
+        val actualResponse = storiesRepository.addStory("token", imageMultipart,description,null,null)
         val expectedError = StoryDataDummy.generateDummyAddStoryResponse().error
         val actualError = actualResponse.error
-
         assertEquals(expectedError,actualError)
     }
 }

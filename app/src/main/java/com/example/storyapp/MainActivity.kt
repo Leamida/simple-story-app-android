@@ -25,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.example.storyapp.core.util.Internet
 import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
 import com.example.storyapp.feature.story.data.source.api.StoryApiService
+import com.example.storyapp.presentation.adapter.LoadingStateAdapter
 import com.example.storyapp.presentation.ui.AddStoryActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -59,7 +60,17 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
         binding.ibReload.setOnClickListener {
-            getUserToken()
+            if (Internet.isAvailable(this@MainActivity)){
+                binding.cReload.visibility = View.GONE
+                getUserToken()
+            }else{
+                Toast.makeText(
+                    this@MainActivity,
+                    resources.getString(R.string.no_internet_connection),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         }
 
         binding.fabAddStory.setOnClickListener {
@@ -87,7 +98,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun getStories(token :String) {
         val listStoryAdapter = ListStoryAdapter()
-        binding.rvStory.adapter = listStoryAdapter
+        binding.rvStory.adapter = listStoryAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter{
+                listStoryAdapter.retry()
+            }
+        )
         listStoryAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ListStoryItem) {
             }
@@ -95,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         storyViewModel.getStories(token).observe(this){
             listStoryAdapter.submitData(lifecycle,it)
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

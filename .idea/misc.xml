@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_story_detail.xml" value="0.35208333333333336" />
         <entry key="app/src/main/res/layout/card.xml" value="0.37395833333333334" />
+        <entry key="app/src/main/res/layout/item_loading.xml" value="0.2" />
         <entry key="app/src/main/res/menu/option_menu.xml" value="0.35208333333333336" />
       </map>
     </option>

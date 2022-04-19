@@ -33,4 +33,5 @@
     <string name="no_data">No data</string>
     <string name="failed_getting_image">Gagal mengambil gambar.</string>
     <string name="failed_launch_camera">Gagal memunculkan kamera.</string>
+    <string name="retry">Coba Lagi</string>
 </resources>

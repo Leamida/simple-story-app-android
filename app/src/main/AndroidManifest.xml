@@ -9,6 +9,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
@@ -24,13 +27,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAGkivJler_kVOIIWRyMrM2nPQdUP8VH4M" />
+
+        <activity
+            android:name=".presentation.ui.MapsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_maps" >
+
+        </activity>
         <activity
             android:name=".presentation.ui.CameraActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.AddStoryActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.StoryDetailActivity"
             android:exported="false" />
