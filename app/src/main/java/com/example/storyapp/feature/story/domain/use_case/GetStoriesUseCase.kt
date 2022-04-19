@@ -12,7 +12,6 @@ import com.example.storyapp.core.util.Result
 import com.example.storyapp.feature.story.data.pager.StoryPagingSource
 import com.example.storyapp.feature.story.data.repository.StoryRepository
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
-import com.example.storyapp.feature.story.domain.model.StoryResponse
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject

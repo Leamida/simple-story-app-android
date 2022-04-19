@@ -1,12 +1,9 @@
 package com.example.storyapp.presentation.view_model
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.storyapp.feature.auth.domain.model.User
 import com.example.storyapp.feature.auth.domain.use_case.LoginUseCase
 import com.example.storyapp.feature.auth.domain.use_case.RegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel

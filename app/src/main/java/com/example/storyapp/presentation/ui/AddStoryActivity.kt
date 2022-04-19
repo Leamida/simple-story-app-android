@@ -26,7 +26,6 @@ import com.example.storyapp.databinding.ActivityAddStoryBinding
 import com.example.storyapp.presentation.view_model.StoryViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -233,7 +232,7 @@ class AddStoryActivity : AppCompatActivity() {
                     getMyLastLocation()
                 }
                 else -> {
-                    // No location access granted.
+
                 }
             }
         }

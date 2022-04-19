@@ -6,8 +6,6 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.feature.auth.data.repository.AuthRepository
-import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
-import com.example.storyapp.feature.auth.domain.model.LoginResponse
 import com.example.storyapp.feature.auth.domain.model.User
 import retrofit2.HttpException
 import java.io.IOException

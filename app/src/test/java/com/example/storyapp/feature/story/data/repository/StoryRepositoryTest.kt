@@ -7,9 +7,7 @@ import com.example.storyapp.feature.story.data.source.api.FakeStoryApiService
 import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import kotlinx.coroutines.test.runBlockingTest
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.*
 import org.junit.Assert.*

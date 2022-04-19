@@ -4,34 +4,27 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.storyapp.core.util.Result
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import com.example.storyapp.presentation.adapter.ListStoryAdapter
 import com.example.storyapp.presentation.ui.AuthActivity
 import com.example.storyapp.presentation.view_model.StoryViewModel
-import com.example.storyapp.presentation.view_model.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.storyapp.core.util.Internet
 import com.example.storyapp.feature.auth.data.source.local.preferences.UserPreferences
-import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import com.example.storyapp.presentation.adapter.LoadingStateAdapter
 import com.example.storyapp.presentation.ui.AddStoryActivity
 import com.example.storyapp.presentation.ui.MapsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

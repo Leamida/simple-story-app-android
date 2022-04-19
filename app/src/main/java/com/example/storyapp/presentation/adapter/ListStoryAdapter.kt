@@ -3,7 +3,6 @@ package com.example.storyapp.presentation.adapter
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
@@ -13,7 +12,6 @@ import com.example.storyapp.databinding.CardBinding
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import com.example.storyapp.presentation.ui.StoryDetailActivity
 import androidx.core.util.Pair
-import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.storyapp.core.util.ShimmerPlaceHolder

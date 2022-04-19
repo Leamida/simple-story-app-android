@@ -2,15 +2,12 @@ package com.example.storyapp.presentation.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.storyapp.core.util.Result
-import com.example.storyapp.feature.story.data.repository.StoryRepository
 import com.example.storyapp.feature.story.domain.model.AddStoryResponse
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
-import com.example.storyapp.feature.story.domain.model.StoryResponse
 import com.example.storyapp.feature.story.domain.use_case.AddStoryUseCase
 import com.example.storyapp.feature.story.domain.use_case.GetStoriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

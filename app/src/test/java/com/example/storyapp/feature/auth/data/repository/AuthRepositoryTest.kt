@@ -2,7 +2,6 @@ package com.example.storyapp.feature.auth.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.storyapp.feature.auth.data.source.api.AuthApiService
-import com.example.storyapp.feature.auth.data.source.api.AuthDataDummy
 import com.example.storyapp.feature.auth.data.source.api.FakeAuthApiService
 import com.example.storyapp.feature.story.data.MainCoroutineRule
 import kotlinx.coroutines.test.runBlockingTest

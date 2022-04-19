@@ -21,8 +21,8 @@ class FakeStoryApiService : StoryApiService {
         token: String,
         file: MultipartBody.Part,
         description: RequestBody,
-        lat: RequestBody?,
-        lon: RequestBody?
+        lat: Double?,
+        lon: Double?
     ): AddStoryResponse {
         return dummyAddStoryResponse
     }

@@ -3,8 +3,6 @@ package com.example.storyapp.feature.story.data.source.api
 import com.example.storyapp.feature.story.domain.model.AddStoryResponse
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import com.example.storyapp.feature.story.domain.model.StoryResponse
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 object StoryDataDummy {
     fun generateDummyStoriesResponse(): StoryResponse {
