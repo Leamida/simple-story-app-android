@@ -16,8 +16,8 @@ interface StoryRepositoryService {
         token: String,
         file: MultipartBody.Part,
         description: RequestBody,
-        lat: RequestBody?,
-        lon: RequestBody?
+        lat: Double?,
+        lon: Double?
     ): AddStoryResponse
     suspend fun getStory(token: String,location:Int) : StoryResponse
 }

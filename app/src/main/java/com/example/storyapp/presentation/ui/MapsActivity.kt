@@ -22,6 +22,7 @@ import com.example.storyapp.MainActivity
 import com.example.storyapp.R
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.databinding.ActivityMapsBinding
+import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import com.example.storyapp.presentation.view_model.StoryViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -34,6 +35,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -80,31 +84,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         } else {
                             result.data.onEach { story ->
                                 story?.let {
-                                    Glide.with(baseContext)
-                                        .asBitmap()
-                                        .load(it.photoUrl!!)
-                                        .circleCrop()
-                                        .apply(RequestOptions().override(100,100))
-                                        .into(object : CustomTarget<Bitmap>(){
-                                            override fun onResourceReady(
-                                                resource: Bitmap,
-                                                transition: Transition<in Bitmap>?
-                                            ) {
-                                                mMap.addMarker(
-                                                    MarkerOptions()
-                                                        .position(LatLng(it.lat!!, it.lon!!))
-                                                        .title(it.name)
-                                                        .icon(BitmapDescriptorFactory.fromBitmap(resource))
-                                                )
-                                            }
-
-                                            override fun onLoadCleared(placeholder: Drawable?) {
-
-                                            }
-
-                                        })
-
-
+                                    storyMarkerMaker(it)
                                 }
                             }
                         }
@@ -117,6 +97,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         setMapStyle()
         getMyLastLocation()
+    }
+
+    private fun storyMarkerMaker(storyItem: ListStoryItem) {
+        Glide.with(baseContext)
+            .asBitmap()
+            .load(storyItem.photoUrl!!)
+            .circleCrop()
+            .apply(RequestOptions().override(60, 60))
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .position(LatLng(storyItem.lat!!, storyItem.lon!!))
+                            .title(storyItem.name)
+                            .icon(BitmapDescriptorFactory.fromBitmap(resource))
+                    )
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+
+                }
+            })
     }
 
     private val requestPermissionLauncher =
@@ -153,8 +158,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 } else {
                     Toast.makeText(
                         this@MapsActivity,
-                        "Current location is not found. Try Again",
-                        Toast.LENGTH_SHORT
+                        "Current location is not found. Please turn on your location",
+                        Toast.LENGTH_LONG
                     ).show()
                 }
             }

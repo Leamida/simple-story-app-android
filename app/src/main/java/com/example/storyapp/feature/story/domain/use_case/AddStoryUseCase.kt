@@ -22,8 +22,8 @@ class AddStoryUseCase @Inject constructor(
         token: String,
         file: MultipartBody.Part,
         description: RequestBody,
-        lat: RequestBody?,
-        lon: RequestBody?
+        lat: Double?,
+        lon: Double?
     ): LiveData<Result<AddStoryResponse?>?> = liveData {
         emit(Result.Loading)
         try {

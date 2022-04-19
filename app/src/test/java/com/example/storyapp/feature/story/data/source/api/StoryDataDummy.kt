@@ -16,9 +16,9 @@ object StoryDataDummy {
                 "2022-04-18T05:10:38.350Z",
                 "cara $i",
                 "helo",
-                null,
+                -12.0,
                 "story-n8By2wkm_y2woMdm$i",
-                null
+                11.0
             )
             listStoryItems.add(story)
         }

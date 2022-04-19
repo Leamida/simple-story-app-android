@@ -34,8 +34,8 @@ class StoryRepository @Inject constructor(
         token: String,
         file: MultipartBody.Part,
         description: RequestBody,
-        lat: RequestBody?,
-        lon: RequestBody?
+        lat: Double?,
+        lon: Double?
     ) : AddStoryResponse {
         return storyApiService.addStory(token, file, description, lat, lon)
     }
