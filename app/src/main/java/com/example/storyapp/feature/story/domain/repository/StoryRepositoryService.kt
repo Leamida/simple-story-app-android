@@ -19,4 +19,5 @@ interface StoryRepositoryService {
         lat: RequestBody?,
         lon: RequestBody?
     ): AddStoryResponse
+    suspend fun getStory(token: String,location:Int) : StoryResponse
 }

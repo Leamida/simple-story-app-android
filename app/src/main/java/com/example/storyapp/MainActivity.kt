@@ -27,6 +27,7 @@ import com.example.storyapp.feature.auth.data.source.local.preferences.UserPrefe
 import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import com.example.storyapp.presentation.adapter.LoadingStateAdapter
 import com.example.storyapp.presentation.ui.AddStoryActivity
+import com.example.storyapp.presentation.ui.MapsActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
@@ -137,6 +138,14 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.settings -> {
                 startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                true
+            }
+            R.id.findStoryByMap->{
+                startActivity(
+                    Intent(this@MainActivity, MapsActivity::class.java)
+                        .putExtra("token", token)
+                )
+                finish()
                 true
             }
             else -> true

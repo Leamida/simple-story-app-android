@@ -10,6 +10,7 @@ import com.example.storyapp.core.util.Result
 import com.example.storyapp.feature.story.data.repository.StoryRepository
 import com.example.storyapp.feature.story.domain.model.AddStoryResponse
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
+import com.example.storyapp.feature.story.domain.model.StoryResponse
 import com.example.storyapp.feature.story.domain.use_case.AddStoryUseCase
 import com.example.storyapp.feature.story.domain.use_case.GetStoriesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,8 @@ class StoryViewModel @Inject constructor(
 
     fun getStories(token: String): LiveData<PagingData<ListStoryItem>> =
         getStoriesUseCase(token).cachedIn(viewModelScope)
+
+    fun getStories(token: String,location:Int) : LiveData<Result<List<ListStoryItem?>?>> = getStoriesUseCase(token, location)
 
     fun addStory(
         token: String,

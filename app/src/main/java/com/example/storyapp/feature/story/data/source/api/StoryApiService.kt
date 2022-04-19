@@ -15,6 +15,12 @@ interface StoryApiService {
         @Query("size") size: Int?
     ): StoryResponse
 
+    @GET("stories")
+    suspend fun getStory(
+        @Header("Authorization") token: String,
+        @Query("location") location:Int
+    ): StoryResponse
+
     @Multipart
     @POST("stories")
     suspend fun addStory(

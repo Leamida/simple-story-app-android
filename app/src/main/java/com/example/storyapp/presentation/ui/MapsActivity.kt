@@ -1,33 +1,48 @@
 package com.example.storyapp.presentation.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
+import com.example.storyapp.MainActivity
 import com.example.storyapp.R
+import com.example.storyapp.core.util.Result
 import com.example.storyapp.databinding.ActivityMapsBinding
+import com.example.storyapp.presentation.view_model.StoryViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
+    private val storyViewModel: StoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,34 +50,71 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        val token = intent.getStringExtra("token")
+        token?.let {
+            storyViewModel.getStories(
+                "Bearer $token",
+                1
+            ).observe(this@MapsActivity) { result ->
+                when (result) {
+                    is Result.Loading -> {
 
-        // Add a marker in Sydney and move the camera
-        for (i in 1..10){
-            val sydney = LatLng(-34.0+i, 151.0+i)
-            mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+                    }
+                    is Result.Success -> {
+                        if (result.data.isNullOrEmpty()) {
+                            Toast.makeText(
+                                this@MapsActivity,
+                                resources.getString(R.string.no_data),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            result.data.onEach { story ->
+                                story?.let {
+                                    Glide.with(baseContext)
+                                        .asBitmap()
+                                        .load(it.photoUrl!!)
+                                        .circleCrop()
+                                        .apply(RequestOptions().override(100,100))
+                                        .into(object : CustomTarget<Bitmap>(){
+                                            override fun onResourceReady(
+                                                resource: Bitmap,
+                                                transition: Transition<in Bitmap>?
+                                            ) {
+                                                mMap.addMarker(
+                                                    MarkerOptions()
+                                                        .position(LatLng(it.lat!!, it.lon!!))
+                                                        .title(it.name)
+                                                        .icon(BitmapDescriptorFactory.fromBitmap(resource))
+                                                )
+                                            }
+
+                                            override fun onLoadCleared(placeholder: Drawable?) {
+
+                                            }
+
+                                        })
+
+
+                                }
+                            }
+                        }
+                    }
+                    is Result.Error -> {
+
+                    }
+                }
+            }
         }
-
-
         setMapStyle()
         getMyLastLocation()
     }
@@ -73,11 +125,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         ) { permissions ->
             when {
                 permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
-                    // Precise location access granted.
                     getMyLastLocation()
                 }
                 permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
-                    // Only approximate location access granted.
                     getMyLastLocation()
                 }
                 else -> {
@@ -85,6 +135,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
+
     private fun checkPermission(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -93,16 +144,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun getMyLastLocation() {
-        if     (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
             checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-        ){
+        ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 if (location != null) {
                     showCurrentLocationMarker(location)
                 } else {
                     Toast.makeText(
                         this@MapsActivity,
-                        "Location is not found. Try Again",
+                        "Current location is not found. Try Again",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -138,7 +189,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    companion object{
-        val TAG = "MapsActivity"
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@MapsActivity, MainActivity::class.java))
+        finish()
+    }
+
+    companion object {
+        const val TAG = "MapsActivity"
     }
 }

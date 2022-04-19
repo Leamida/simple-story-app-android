@@ -13,6 +13,10 @@ class FakeStoryApiService : StoryApiService {
         return dummyStoriesResponse
     }
 
+    override suspend fun getStory(token: String, location: Int): StoryResponse {
+        return dummyStoriesResponse
+    }
+
     override suspend fun addStory(
         token: String,
         file: MultipartBody.Part,

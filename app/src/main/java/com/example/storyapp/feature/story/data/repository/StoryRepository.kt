@@ -26,6 +26,10 @@ class StoryRepository @Inject constructor(
         return storyApiService.getStory(token,page,size)
     }
 
+    override suspend fun getStory(token: String, location: Int): StoryResponse {
+        return storyApiService.getStory(token, location)
+    }
+
     override suspend fun addStory(
         token: String,
         file: MultipartBody.Part,
