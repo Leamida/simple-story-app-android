@@ -22,7 +22,7 @@ class StoryViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getStories(token: String): LiveData<PagingData<ListStoryItem>> =
-        getStoriesUseCase(token).cachedIn(viewModelScope)
+        getStoriesUseCase(token)
 
     fun getStories(token: String,location:Int) : LiveData<Result<List<ListStoryItem?>?>> = getStoriesUseCase(token, location)
 
