@@ -2,6 +2,7 @@ package com.example.storyapp.feature.auth.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.storyapp.feature.auth.data.source.api.AuthApiService
+import com.example.storyapp.feature.auth.data.source.api.AuthDataDummy
 import com.example.storyapp.feature.auth.data.source.api.FakeAuthApiService
 import com.example.storyapp.feature.story.data.MainCoroutineRule
 import kotlinx.coroutines.test.runBlockingTest
@@ -34,57 +35,23 @@ class AuthRepositoryTest {
     fun `when postLogin with registered email and password, user Should Not Null`() =
         mainCoroutineRule.runBlockingTest {
             val loginResponse = apiService.postLogin("leo@gmail.com", "123456")
-            val user = loginResponse.loginResult
+            val actualUser = loginResponse.loginResult
+            val expectedUser =AuthDataDummy.generateDummyLoginResponse("leo@gmail.com", "123456").loginResult
 
-            assertNotNull(user)
-
-        }
-
-    @Test
-    @kotlinx.coroutines.ExperimentalCoroutinesApi
-    fun `when postLogin with unregister email and password, error should be true`() =
-        mainCoroutineRule.runBlockingTest {
-            val loginResponse = apiService.postLogin("unregister@gmail.com", "123456")
-            val expectedError = true
-            val actualError = loginResponse.error
-
-            assertEquals(expectedError, actualError)
-
-        }
-
-    @Test
-    @kotlinx.coroutines.ExperimentalCoroutinesApi
-    fun `when postLogin with invalid email and password, error should be true`() =
-        mainCoroutineRule.runBlockingTest {
-            val expectedError = true
-            val loginResponse = apiService.postLogin("invalid@email", "12345")
-            val actualError = loginResponse.error
-
-            assertEquals(expectedError, actualError)
-
+            assertNotNull(actualUser)
+            assertEquals(expectedUser,actualUser)
         }
 
 
     @Test
     @kotlinx.coroutines.ExperimentalCoroutinesApi
-    fun `when postRegister With Unregister email and 6 char password, error should be false`() =
+    fun `when postRegister should return Message`() =
         mainCoroutineRule.runBlockingTest {
-            val expectedError = false
-            val registerResponse =
-                apiService.postRegister("test", "unregister@email.com", "123456")
-            val actualError = registerResponse.error
+            val expectedMessage = AuthDataDummy.generateDummyRegisterResponse("test", "registered@email.com", "123456").message
+            val registerResponse = authRepository.postRegister("test", "registered@email.com", "123456")
+            val actualMessage = registerResponse.message
 
-            assertEquals(expectedError, actualError)
-        }
-
-    @Test
-    @kotlinx.coroutines.ExperimentalCoroutinesApi
-    fun `when postRegister With registered email and 6 char password, error should be true`() =
-        mainCoroutineRule.runBlockingTest {
-            val expectedError = true
-            val registerResponse = apiService.postRegister("test", "registered@email.com", "123456")
-            val actualError = registerResponse.error
-
-            assertEquals(expectedError, actualError)
+            assertNotNull(actualMessage)
+            assertEquals(expectedMessage,actualMessage)
         }
 }

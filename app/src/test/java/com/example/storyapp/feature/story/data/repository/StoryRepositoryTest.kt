@@ -45,17 +45,19 @@ class StoryRepositoryTest {
     @Test
     @kotlinx.coroutines.ExperimentalCoroutinesApi
     fun `when getStory with location Should Not Null`()  = mainCoroutineRule.runBlockingTest{
-        val expectedStories = StoryDataDummy.generateDummyStoriesResponse()
-        val actualStories = storiesRepository.getStory("token",1)
+        val expectedStories = StoryDataDummy.generateDummyStoriesResponse().listStory
+        val actualStories = storiesRepository.getStory("token",1).listStory
 
         assertNotNull(actualStories)
+        assertNotNull(actualStories[0].lat)
+        assertNotNull(actualStories[0].lon)
         assertEquals(expectedStories,actualStories)
 
     }
 
     @Test
     @kotlinx.coroutines.ExperimentalCoroutinesApi
-    fun `when addStory error should be false`() = mainCoroutineRule.runBlockingTest{
+    fun `when success addStory error should be false`() = mainCoroutineRule.runBlockingTest{
         val description ="test".toRequestBody("text/plain".toMediaType())
         val fakeRequestImageFile = "imageFile".toRequestBody("text/plain".toMediaType())
         val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -64,7 +66,7 @@ class StoryRepositoryTest {
             fakeRequestImageFile
         )
         val actualResponse = storiesRepository.addStory("token", imageMultipart,description,null,null)
-        val expectedError = StoryDataDummy.generateDummyAddStoryResponse().error
+        val expectedError = false
         val actualError = actualResponse.error
         assertEquals(expectedError,actualError)
     }

@@ -112,6 +112,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             .position(LatLng(storyItem.lat!!, storyItem.lon!!))
                             .title(storyItem.name)
                             .icon(BitmapDescriptorFactory.fromBitmap(resource))
+                            .snippet(storyItem.description)
                     )
                 }
 
@@ -133,7 +134,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     getMyLastLocation()
                 }
                 else -> {
-                    // No location access granted.
+
                 }
             }
         }
