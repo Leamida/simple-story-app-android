@@ -7,7 +7,6 @@ import androidx.lifecycle.map
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.core.util.wrapEspressoIdlingResource
 import com.example.storyapp.feature.story.data.repository.StoryRepository
-import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import com.example.storyapp.feature.story.domain.model.AddStoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

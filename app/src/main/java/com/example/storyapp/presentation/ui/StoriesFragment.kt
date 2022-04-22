@@ -6,15 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.storyapp.MainActivity
-import com.example.storyapp.R
-import com.example.storyapp.databinding.ActivityMainBinding
-import com.example.storyapp.databinding.ActivityMapsBinding
 import com.example.storyapp.databinding.FragmentStoriesBinding
-import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import com.example.storyapp.presentation.adapter.ListStoryAdapter
 import com.example.storyapp.presentation.adapter.LoadingStateAdapter
 import com.example.storyapp.presentation.view_model.StoryViewModel

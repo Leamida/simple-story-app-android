@@ -1,6 +1,5 @@
 package com.example.storyapp.feature.auth.data.source.api
 
-import com.example.storyapp.R
 import com.example.storyapp.feature.auth.domain.model.LoginResponse
 import com.example.storyapp.feature.auth.domain.model.RegisterResponse
 import com.example.storyapp.feature.auth.domain.model.User

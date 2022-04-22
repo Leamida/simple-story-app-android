@@ -45,9 +45,7 @@ class StoriesFragmentTest {
             .setResponseCode(200)
             .setBody(JsonConverter.readStringFromFile("getstory_success_response.json"))
         mockWebServer.enqueue(mockResponse)
-        launchFragmentInHiltContainer<StoriesFragment> {
-
-        }
+        launchFragmentInHiltContainer<StoriesFragment> {}
         onView(withId(R.id.rvStory))
             .check(matches(isDisplayed()))
         onView(withText("bakekok"))

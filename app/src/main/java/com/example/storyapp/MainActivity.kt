@@ -125,9 +125,4 @@ class MainActivity : AppCompatActivity() {
             else -> true
         }
     }
-
-
-    companion object {
-        private const val TAG = "MainActivity"
-    }
 }

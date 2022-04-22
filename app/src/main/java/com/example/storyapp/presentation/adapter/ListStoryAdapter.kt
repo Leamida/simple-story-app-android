@@ -12,13 +12,10 @@ import com.example.storyapp.databinding.CardBinding
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import com.example.storyapp.presentation.ui.StoryDetailActivity
 import androidx.core.util.Pair
-import androidx.fragment.app.Fragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.storyapp.core.util.ShimmerPlaceHolder
 import dagger.hilt.android.internal.managers.FragmentComponentManager
-import dagger.hilt.android.internal.managers.ViewComponentManager
-
 
 class ListStoryAdapter
  : PagingDataAdapter<ListStoryItem,ListStoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
