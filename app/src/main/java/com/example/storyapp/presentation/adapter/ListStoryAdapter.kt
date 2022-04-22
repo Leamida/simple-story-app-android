@@ -12,19 +12,16 @@ import com.example.storyapp.databinding.CardBinding
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
 import com.example.storyapp.presentation.ui.StoryDetailActivity
 import androidx.core.util.Pair
+import androidx.fragment.app.Fragment
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.storyapp.core.util.ShimmerPlaceHolder
+import dagger.hilt.android.internal.managers.FragmentComponentManager
+import dagger.hilt.android.internal.managers.ViewComponentManager
 
 
 class ListStoryAdapter
  : PagingDataAdapter<ListStoryItem,ListStoryAdapter.ListViewHolder>(DIFF_CALLBACK) {
-
-    private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding =
@@ -44,7 +41,7 @@ class ListStoryAdapter
 
                 val optionsCompat: ActivityOptionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        holder.itemView.context as Activity,
+                        FragmentComponentManager.findActivity(holder.itemView.context) as Activity,
                         Pair(holder.binding.tvName, "tName"),
                         Pair(holder.binding.ivStory, "tIvStory"),
                         Pair(holder.binding.tvDescription, "tDescription"),
@@ -64,9 +61,6 @@ class ListStoryAdapter
                 .into(binding.ivStory)
         }
     }
-    interface OnItemClickCallback {
-        fun onItemClicked(data: ListStoryItem)
-    }
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
             override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
@@ -78,6 +72,4 @@ class ListStoryAdapter
             }
         }
     }
-
-
 }

@@ -9,6 +9,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.example.storyapp.core.util.Result
+import com.example.storyapp.core.util.wrapEspressoIdlingResource
 import com.example.storyapp.feature.story.data.pager.StoryPagingSource
 import com.example.storyapp.feature.story.data.repository.StoryRepository
 import com.example.storyapp.feature.story.domain.model.ListStoryItem
@@ -31,23 +32,25 @@ class GetStoriesUseCase @Inject constructor(
     private val _stories = MutableLiveData<List<ListStoryItem?>?>()
     operator fun invoke(
         token: String,
-        location :Int
+        location: Int
     ): LiveData<Result<List<ListStoryItem?>?>> = liveData {
         emit(Result.Loading)
-        try {
-            val storyResponse = storyRepository.getStory(token, location)
-            if (storyResponse.error) {
-                emit(Result.Error(storyResponse.message))
-            } else {
-                _stories.value = storyResponse.listStory
-                val tempData: LiveData<Result<List<ListStoryItem?>?>> =
-                    _stories.map { map -> Result.Success(map) }
-                emitSource(tempData)
+        wrapEspressoIdlingResource {
+            try {
+                val storyResponse = storyRepository.getStory(token, location)
+                if (storyResponse.error) {
+                    emit(Result.Error(storyResponse.message))
+                } else {
+                    _stories.value = storyResponse.listStory
+                    val tempData: LiveData<Result<List<ListStoryItem?>?>> =
+                        _stories.map { map -> Result.Success(map) }
+                    emitSource(tempData)
+                }
+            } catch (e: HttpException) {
+                emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            } catch (e: IOException) {
+                emit(Result.Error("Couldn't reach server. Check your internet connection."))
             }
-        } catch (e: HttpException) {
-            emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(Result.Error("Couldn't reach server. Check your internet connection."))
         }
     }
 }

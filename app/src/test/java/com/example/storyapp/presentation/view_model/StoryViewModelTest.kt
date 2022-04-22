@@ -3,6 +3,7 @@ package com.example.storyapp.presentation.view_model
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.storyapp.core.util.Result
 import com.example.storyapp.core.util.getOrAwaitValue
 import com.example.storyapp.feature.story.data.repository.StoryRepository
@@ -60,8 +61,8 @@ class StoryViewModelTest {
 
         Mockito.verify(getStoriesUseCase).invoke("token")
 
-        assertNotNull(actualStories)
 
+        assertNotNull(actualStories)
     }
 
     @Test

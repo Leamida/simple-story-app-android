@@ -21,6 +21,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    var BASE_URL = "https://story-api.dicoding.dev/v1/"
+
     @Provides
     @Singleton
     fun provideStoryApi(): StoryApiService {
@@ -35,7 +37,7 @@ object AppModule {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

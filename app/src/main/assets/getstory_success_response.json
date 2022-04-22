@@ -1,0 +1,96 @@
+{
+  "error": false,
+  "message": "Stories fetched successfully",
+  "listStory": [
+    {
+      "id": "story-r5rej3O-n4qO5Y7b",
+      "name": "uzumaki saburo  hyuga",
+      "description": "bakekok",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650615411757_JC7GgZvq.jpg",
+      "createdAt": "2022-04-22T08:16:51.758Z",
+      "lat": 42.378582,
+      "lon": -71.1157
+    },
+    {
+      "id": "story-Bk-JLfVV1vbaCmt5",
+      "name": "imelda",
+      "description": "ubi jalar",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650615049835_bGmrX_9x.jpg",
+      "createdAt": "2022-04-22T08:10:49.837Z",
+      "lat": -6.5622883,
+      "lon": 107.760795
+    },
+    {
+      "id": "story-09pFqO3jap29LioP",
+      "name": "imelda",
+      "description": "hdhdhggdh",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650614996121_a9lF7yYg.jpg",
+      "createdAt": "2022-04-22T08:09:56.122Z",
+      "lat": -6.5622883,
+      "lon": 107.760795
+    },
+    {
+      "id": "story-wRgyA3pi9eIJqqiR",
+      "name": "imelda",
+      "description": "fsffs",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650614412660_NUwGY0xm.jpg",
+      "createdAt": "2022-04-22T08:00:12.661Z",
+      "lat": -6.5622883,
+      "lon": 107.760795
+    },
+    {
+      "id": "story-EaOPo9_ekgizicMZ",
+      "name": "sikoko",
+      "description": "iy",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650613215114_A54d3Lc_.jpg",
+      "createdAt": "2022-04-22T07:40:15.115Z",
+      "lat": -6.5622883,
+      "lon": 107.760795
+    },
+    {
+      "id": "story-XxYA9M8Rp9xmlJCB",
+      "name": "awa",
+      "description": "UwoOoOoOgh",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650611591568_GvLw1aco.jpg",
+      "createdAt": "2022-04-22T07:13:11.569Z",
+      "lat": -7.6305785,
+      "lon": 111.868675
+    },
+    {
+      "id": "story-RFK68PYnNAukpxi4",
+      "name": "ok",
+      "description": "qqqqq",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650611571338_f5bSKIgS.jpg",
+      "createdAt": "2022-04-22T07:12:51.343Z",
+      "lat": -5.2933747,
+      "lon": 104.9866051
+    },
+    {
+      "id": "story-tjiZxcPBBxjhxXwK",
+      "name": "I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shitI'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shitI'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shitI'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shitI'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit I'm gonna messed up your layout with this fucking long name shit",
+      "description": "I'm sorry",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650610623707_SlNgeM6N.jpg",
+      "createdAt": "2022-04-22T06:57:03.709Z",
+      "lat": -7.9606027,
+      "lon": 110.6128069
+    },
+    {
+      "id": "story-H3C4ZwCiJnnncRPD",
+      "name": "miles_morales",
+      "description": "h",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650610185897_zIUmIXaw.jpg",
+      "createdAt": "2022-04-22T06:49:45.899Z",
+      "lat": -7.9606027,
+      "lon": 110.6128069
+    },
+    {
+      "id": "story-7f59gtJCu7qkcsdL",
+      "name": "ok",
+      "description": "qjiqiwwkwjwiwisjsjisjsnsmsmskamsmxxkdkksmmskslwmamqk",
+      "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1650608156778_Mv-Opca1.jpg",
+      "createdAt": "2022-04-22T06:15:56.783Z",
+      "lat": -5.2933749,
+      "lon": 104.9866032
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.example.storyapp.core.util.Result
+import com.example.storyapp.core.util.wrapEspressoIdlingResource
 import com.example.storyapp.feature.story.data.repository.StoryRepository
 import com.example.storyapp.feature.story.data.source.api.StoryApiService
 import com.example.storyapp.feature.story.domain.model.AddStoryResponse
@@ -26,16 +27,18 @@ class AddStoryUseCase @Inject constructor(
         lon: Double?
     ): LiveData<Result<AddStoryResponse?>?> = liveData {
         emit(Result.Loading)
-        try {
-            _addStory.value = storyRepository.addStory(token, file, description,lat, lon)
-            val tempData: LiveData<Result<AddStoryResponse?>?> =
-                _addStory.map { map -> Result.Success(map) }
-            emitSource(tempData)
+        wrapEspressoIdlingResource {
+            try {
+                _addStory.value = storyRepository.addStory(token, file, description,lat, lon)
+                val tempData: LiveData<Result<AddStoryResponse?>?> =
+                    _addStory.map { map -> Result.Success(map) }
+                emitSource(tempData)
 
-        } catch (e: HttpException) {
-            emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(Result.Error("Couldn't reach server. Check your internet connection."))
+            } catch (e: HttpException) {
+                emit(Result.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            } catch (e: IOException) {
+                emit(Result.Error("Couldn't reach server. Check your internet connection."))
+            }
         }
     }
 }
